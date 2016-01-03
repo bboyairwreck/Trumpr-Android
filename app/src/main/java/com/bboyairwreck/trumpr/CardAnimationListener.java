@@ -1,10 +1,9 @@
-package com.bboyairwreck.swipecard;
+package com.bboyairwreck.trumpr;
 
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 /**

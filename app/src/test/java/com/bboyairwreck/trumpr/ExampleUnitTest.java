@@ -1,4 +1,4 @@
-package com.bboyairwreck.swipecard;
+package com.bboyairwreck.trumpr;
 
 import org.junit.Test;
 
