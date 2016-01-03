@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             RelativeLayout card = (RelativeLayout) vi.inflate(R.layout.card_details, null); // ignore this warning because we are adding it at the end
 
             // TODO Change these values to the image/Title in the card
-            int cardDrawableID = R.drawable.person_placeholder;
+            int cardDrawableID = R.drawable.donald1;
             String cardTitle = "Card Title";
 
             imageView = (ImageView) card.findViewById(R.id.ivFoodImage);
