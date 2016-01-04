@@ -2,7 +2,9 @@ package com.bboyairwreck.trumpr;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -96,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
             // TODO Change these values to the image/Title in the card
             int cardDrawableID = R.drawable.donald1;
-            String cardTitle = "Card Title";
+            String cardTitle = "Donald Trump";
 
             imageView = (ImageView) card.findViewById(R.id.ivFoodImage);
 
@@ -164,11 +166,11 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 float alpha = (1f - Math.abs(swipePercent));
 
                 // set rotation, alpha, & translation
-                v.setAlpha(alpha);
+//                v.setAlpha(alpha);
                 v.setRotation(rotation);
                 v.setTranslationX(dif);
 
-                Log.d("OnTouch", "swipePercent = " + swipePercent + "; rotation = " + rotation + "; alpha = " + alpha);
+                Log.d("OnTouch", "swipePercent = " + swipePercent + "; rotation = " + rotation);
                 break;
             // On Release
             case MotionEvent.ACTION_UP:
@@ -183,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
                     // Animate card off screen if did reach swipe threshold
                 } else {
-                    animateCardOff(v , v.getRotation(), 600);
+                    animateCardOff(v , v.getRotation(), 600, false);
                 }
 
                 Log.i("OnTouch", "Touch Released");
@@ -212,20 +214,22 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 //                Log.i("ViewName",card.getClass().getName());
 
                 if (card != null) {
-                    animateCardOff(card, direction, 400);
+                    animateCardOff(card, direction, 400, true);
                 }
             }
         };
     }
 
-    private void animateCardOff(final View v, float rotation, int animDuration){
+    private void animateCardOff(final View v, float rotation, int animDuration, boolean doRotation){
         float sign = 1;
         if (rotation < 0) {
             sign = -1;
         } else {
             // If Liked card, add card to database
             // TODO add card to database
+            sign = -3; // always swipe left
         }
+        playSound();
         RotateAnimation rotateAnim = new RotateAnimation(0, MAX_ROTATION*sign, pivotX, pivotY);
         rotateAnim.setDuration(animDuration);
         rotateAnim.setRepeatCount(0);
@@ -235,7 +239,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         translateAnim.setRepeatCount(0);
 
         AnimationSet animSet = new AnimationSet(true);
-        animSet.addAnimation(rotateAnim);
+        if (doRotation) {
+            animSet.addAnimation(rotateAnim);
+        }
         animSet.addAnimation(translateAnim);
         animSet.setFillAfter(true);
         animSet.setAnimationListener(new CardAnimationListener(v, _root, btnYeah, btnNope, new Runnable() {
@@ -273,10 +279,33 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     public void onDestroy() {
         super.onDestroy();
         System.gc();
-        imageView.setImageBitmap(null);
+        if (imageView != null) {
+            imageView.setImageBitmap(null);
+        }
         btnNope.setImageBitmap(null);
         btnYeah.setImageBitmap(null);
         btnClear.setImageBitmap(null);
+    }
+
+    int soundIndex = 0;
+    private void playSound() {
+        int resID = getResources().getIdentifier("china" + soundIndex, "raw", getPackageName());
+        final MediaPlayer mediaPlayer = MediaPlayer.create(this, resID);
+
+        if (soundIndex < 89) {
+            soundIndex++;
+        } else {
+            soundIndex = 0;
+        }
+
+        mediaPlayer.start();
+
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                  mediaPlayer.release();
+            }
+        });
     }
 
 }

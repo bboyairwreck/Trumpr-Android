@@ -20,7 +20,6 @@
         android:textColor="@color/white"
         android:textSize="@dimen/starSize"
         android:layout_alignBottom="@id/ivFoodImage"
-
         />
 
 </RelativeLayout>
