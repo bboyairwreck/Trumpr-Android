@@ -14,9 +14,19 @@
     tools:showIn="@layout/activity_main"
     tools:context="com.bboyairwreck.trumpr.MainActivity">
 
+    <TextView
+        android:id="@+id/tvQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:text="@string/question"
+        />
+
     <!-- TODO change id of 'root' -->
     <RelativeLayout
         android:id="@+id/root"
+        android:layout_below="@id/tvQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
