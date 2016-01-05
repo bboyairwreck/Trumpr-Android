@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     private ViewGroup _root;
     private ImageButton btnNope;
     private ImageButton btnYeah;
-    private ImageButton btnClear;
     private int numCards;
 
     ImageView imageView;
@@ -54,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         int buttonSize = 100;
         btnNope = (ImageButton) findViewById(R.id.btnNope);
         btnYeah = (ImageButton) findViewById(R.id.btnYeah);
-        btnClear = (ImageButton) findViewById(R.id.btnClear);
 
         btnNope.setImageBitmap(
                 SwipeCardApp.decodeSampledBitmapFromResource(getResources(), R.drawable.nope, buttonSize, buttonSize));
@@ -283,7 +281,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         }
         btnNope.setImageBitmap(null);
         btnYeah.setImageBitmap(null);
-        btnClear.setImageBitmap(null);
     }
 
     int soundIndex = 0;
